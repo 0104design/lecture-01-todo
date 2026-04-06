@@ -11,7 +11,7 @@ function App() {
         //event 라고 하는 Javascript엔진이 분삭한 사건 내용을 가지고 보니
         // event.target.value 하는 값이 input 에 입력된 값이 들어있더라.
         setTodo(event.target.value);
-    }
+    };
 
     const onSubmit = event => {
         // Chrome같은 웹브라우저는 기본적으로 onSubmit이 내장되어있는 기능이 존재함.
@@ -28,7 +28,17 @@ function App() {
         // todo의 값을 삭제하고
         setTodo("");
         // input에 값을 삭제해야함 -> input태그의 value속성을 비워야하는 일
-    }
+    };
+
+    const deleteTodo = (index) => {
+        // 우리가 삭제해야하는 것은 index로 접근 할 수 있음 => list에 접근
+        // 우리가 삭제하려는 button에 걸린 인덱스 : index, filter를 통해 걸러내려는 index번호 : i
+        setList(
+            list.filter((v, i) => {
+                return i !== index;
+            }),
+        );
+    };
 
     return (
         <div>
@@ -60,7 +70,12 @@ function App() {
                                                                 그 값은 map이 반환하는 퇴상댄 태그들 사이에어 겹치지 않는 유일값을 넣어야함.
                  */}
                 {list.map((value, index) => {
-                    return <li key={index}>{value}</li>;
+                    return (
+                        <li key={index}>
+                            {value}
+                            <button onClick={()=> deleteTodo(index)}>❌</button>
+                        </li>
+                    );
                 })}
             </ul>
         </div>
